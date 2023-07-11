@@ -9,7 +9,11 @@ const Navigation = () => {
     <>
     <Navbar expand="md" className="bg-body-tertiary fixed-top">
         <Container>
-            <Navbar.Brand href="/">LCWC++</Navbar.Brand>
+            <Navbar.Brand>
+                <LinkContainer to="/">
+                    <Nav.Link >LCWC++</Nav.Link>
+                </LinkContainer>
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
