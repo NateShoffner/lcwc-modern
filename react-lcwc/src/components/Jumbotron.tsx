@@ -12,7 +12,7 @@ const Jumbotron = () => {
     <Row className="p-4 mb-4 bg-body-tertiary rounded-3">
         <Container className="container-fluid py-5">
             <h1 className="display-5 fw-bold">LCWC++</h1>
-            <p className="fs-4">LCWC++ is an unofficial, open-source project aimed at modernizing the Lancaster County-Wide Communications (LCWC) web service and offering easy access to active and history incident data.</p>
+            <p className="fs-4">LCWC++ is an unofficial, open-source project aimed at modernizing the Lancaster County-Wide Communications (LCWC) web service and offering easy access to active and historical incident data.</p>
         </Container>
 
         <Row>
