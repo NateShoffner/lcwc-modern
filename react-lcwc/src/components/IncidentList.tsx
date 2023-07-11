@@ -18,7 +18,8 @@ function IncidentList({categoryName, incidents}: IncidentListProps)  {
 
     <Row xs={1} md={2} className="g-4">
         {
-        incidents.map((incident) => (
+            incidents.length === 0 ? <Col><p>There are currentlly no active {categoryName} incidents.</p></Col> :
+                incidents.map((incident) => (
             <CardGroup>
                 <IncidentCard category={incident.category} description={incident.description} municipality={incident.municipality} intersection={incident.intersection} number={incident.number} priority={incident.priority} agency={incident.agency} units={incident.units} />
             </CardGroup>
