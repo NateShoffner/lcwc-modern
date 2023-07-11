@@ -2,19 +2,23 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { Button, Form } from 'react-bootstrap';
-
+import {LinkContainer} from 'react-router-bootstrap'
 
 const Navigation = () => {
   return (
     <>
     <Navbar expand="md" className="bg-body-tertiary fixed-top">
         <Container>
-            <Navbar.Brand href="#home">LCWC++</Navbar.Brand>
+            <Navbar.Brand href="/">LCWC++</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#about">About</Nav.Link>
+                <LinkContainer to="/">
+                    <Nav.Link >Home</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="incidents">
+                    <Nav.Link >Incidents</Nav.Link>
+                </LinkContainer>
             </Nav>
             <Form className="d-flex">
                 <Form.Control
