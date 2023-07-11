@@ -1,3 +1,18 @@
 main > .container {
-    padding: 80px 15px 0;
+    padding: 60px 15px 0;
+}
+
+tr.fire td{
+    background-color: #d68442 !important;
+    color: #000000 !important;
+}
+
+tr.medical td{
+    background-color: #3a98a8 !important;
+    color: #000000 !important;
+}
+
+tr.traffic td{
+    background-color: #4369e6 !important;
+    color: #000000 !important;
 }

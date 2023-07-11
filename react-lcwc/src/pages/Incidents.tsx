@@ -1,16 +1,10 @@
-import React from 'react'
 import Incident from '../lcwc/incident';
 import { useEffect, useState } from 'react';
 import IncidentsTable from '../components/IncidentsTable';
-import IncidentList from '../components/IncidentList';
-
 
 const Incidents = () => {
 
 const [incidents, setIncidents] = useState(Array<Incident>());
-const [fireIncidents, setFireIncidents] = useState(Array<Incident>());
-const [medicalIncidents, setMedicalIncidents] = useState(Array<Incident>());
-const [trafficIncidents, setTrafficIndidents] = useState(Array<Incident>());
 
 function getIncidents() {
     console.log("Getting incidents...");
@@ -21,27 +15,8 @@ function getIncidents() {
     throw new Error('Request failed!');
     }, networkError => console.log(networkError.message)
     ).then(jsonResponse => {
-        const fireIncidents = new Array();
-        const medicalIncidents = new Array();
-        const trafficIncidents = new Array();
-        const incidents = new Array();
-        
-        jsonResponse.forEach((incident: any) => {
-            if (incident['category'] === 'Fire') {
-                fireIncidents.push(incident);
-            } else if (incident['category'] === 'Medical') {
-                medicalIncidents.push(incident);
-            } else if (incident['category'] === 'Traffic') {
-                trafficIncidents.push(incident);
-            }
-
-            incidents.push(incident);
-        });
-        
+        const incidents = jsonResponse;
         setIncidents(incidents);
-        setFireIncidents(fireIncidents);
-        setMedicalIncidents(medicalIncidents);
-        setTrafficIndidents(trafficIncidents);
     })
 }
 
@@ -55,21 +30,13 @@ useEffect(() => {
       return () => clearInterval(interval);
     }, [])
 
-
-
   return (
     <>
-    <h2 className='mb-5'>Active Incidents</h2>
+    <h2 className='mb-5'>Active Incidents ({incidents.length}) </h2>
 
-    <IncidentsTable categoryName='Fire' incidents={incidents} />
-                    
-    <IncidentList categoryName='Fire' incidents={fireIncidents} />
-    <IncidentList categoryName='Medical' incidents={medicalIncidents} />
-    <IncidentList categoryName='Traffic' incidents={trafficIncidents} />
-
+    <IncidentsTable incidents={incidents} />
     </>
   )
 }
 
 export default Incidents
-

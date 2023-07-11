@@ -1,7 +1,7 @@
-import { Table } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHashtag, faClock, faArrowUpWideShort, faCalendarAlt, faLocationPin, faFireExtinguisher, faAmbulance, faTrafficLight } from '@fortawesome/free-solid-svg-icons'
+import { Alert, Table } from 'react-bootstrap';
+import { faFireExtinguisher, faAmbulance, faTrafficLight } from '@fortawesome/free-solid-svg-icons'
 import Incident from '../lcwc/incident';
+import { useNavigate } from "react-router-dom";
 
 const categoryIcons = {
     'Fire': faFireExtinguisher,
@@ -14,20 +14,34 @@ function getUnitIcon(category: string) {
 }
 
 interface IncidentTableProps {
-    categoryName: string;
     incidents: Incident[];
 }
 
-function IncidentsTable({categoryName, incidents}: IncidentTableProps)  {
+function NoIncidentsTable() {
+    return (
+        <Alert variant='info'>
+            There are currently no active incidents.
+        </Alert>
+    )
+}
+
+function IncidentsTable({incidents}: IncidentTableProps)  {
+
+    const navigate = useNavigate();
+
     return (
         <>
-        <h3 className='mt-4 mb-4'>Active {categoryName} Incidents: {incidents.length}</h3>
+        {         
+        incidents.length === 0 ? 
+            <NoIncidentsTable /> : null
+        }
 
-        <Table striped bordered hover>
+        <Table striped bordered hover responsive>
             <thead>
                 <tr>    
                     <th>Number</th>
-                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Description</th>
                     <th>Location</th>
                     <th>Agency</th>
                     <th>Priority</th>
@@ -36,19 +50,27 @@ function IncidentsTable({categoryName, incidents}: IncidentTableProps)  {
             </thead>
 
             <tbody>
-
             {
-                incidents.length === 0 ? <tr><td>There are curently no active incidents.</td></tr> :
-                    incidents.map((incident) => (
+                incidents.map((incident, index) => (
 
-                <tr>
+                <tr className={incident.category.toLowerCase()} style={{cursor: 'pointer'}} onClick={() => { 
+                    navigate(`/incident/${incidents[index].number}`)
+                }}>
                     <td>{incident.number}</td>
-                    <td><FontAwesomeIcon icon={getUnitIcon(incident.category)} /> {incident.category}</td>
-                    
+                    <td>{new Intl.DateTimeFormat('en-US', {hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(Date.parse(incident.date))}</td>
+                    <td>{incident.description}</td>     
                     <td>{incident.intersection}<br />{incident.municipality}</td>
                     <td>{incident.agency}</td>
-                    <td>{incident.priority}</td>
-                    <td>{incident.units.length}</td>
+                    <td>{incident.priority ?? 'N/A'}</td>
+                    <td>
+                        <ul className='list-unstyled'>
+                            {
+                                incident.units.map((unit) => (
+                                    <li>{unit.name}</li>
+                                ))
+                            }
+                        </ul>
+                    </td>
                 </tr>
                     
             ))
