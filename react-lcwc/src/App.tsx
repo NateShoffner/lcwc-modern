@@ -7,9 +7,11 @@ import { useEffect, useState } from 'react';
 import Incident from './lcwc/incident';
 import './App.css'
 import Jumbotron from './components/Jumbotron';
+import IncidentsTable from './components/IncidentsTable';
 
 function App() {
 
+    const [incidents, setIncidents] = useState(Array<Incident>());
     const [fireIncidents, setFireIncidents] = useState(Array<Incident>());
     const [medicalIncidents, setMedicalIncidents] = useState(Array<Incident>());
     const [trafficIncidents, setTrafficIndidents] = useState(Array<Incident>());
@@ -26,6 +28,7 @@ function App() {
             const fireIncidents = new Array();
             const medicalIncidents = new Array();
             const trafficIncidents = new Array();
+            const incidents = new Array();
             
             jsonResponse.forEach((incident: any) => {
                 if (incident['category'] === 'Fire') {
@@ -35,8 +38,11 @@ function App() {
                 } else if (incident['category'] === 'Traffic') {
                     trafficIncidents.push(incident);
                 }
-            });
 
+                incidents.push(incident);
+            });
+            
+            setIncidents(incidents);
             setFireIncidents(fireIncidents);
             setMedicalIncidents(medicalIncidents);
             setTrafficIndidents(trafficIncidents);
@@ -62,6 +68,8 @@ function App() {
             <main className="flex-shrink-0">
                 <Container>
                     <Jumbotron />
+
+                    <IncidentsTable categoryName='Fire' incidents={incidents} />
                     
                     <IncidentList categoryName='Fire' incidents={fireIncidents} />
                     <IncidentList categoryName='Medical' incidents={medicalIncidents} />
