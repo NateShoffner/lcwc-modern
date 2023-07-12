@@ -32,7 +32,7 @@ useEffect(() => {
 
   return (
     <>
-    <h2 className='mb-5'>Active Incidents ({incidents.length}) </h2>
+    <h2 className='mb-5'>Active Incidents: ({incidents.length}) </h2>
 
     <IncidentsTable incidents={incidents} />
     </>

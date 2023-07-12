@@ -1,17 +1,6 @@
 import { Alert, Table } from 'react-bootstrap';
-import { faFireExtinguisher, faAmbulance, faTrafficLight } from '@fortawesome/free-solid-svg-icons'
 import Incident from '../lcwc/incident';
 import { useNavigate } from "react-router-dom";
-
-const categoryIcons = {
-    'Fire': faFireExtinguisher,
-    'Medical': faAmbulance,
-    'Traffic': faTrafficLight
-}
-
-function getUnitIcon(category: string) {
-    return categoryIcons[category as keyof typeof categoryIcons];
-}
 
 interface IncidentTableProps {
     incidents: Incident[];
@@ -25,17 +14,11 @@ function NoIncidentsTable() {
     )
 }
 
-function IncidentsTable({incidents}: IncidentTableProps)  {
+function PopulatedIncidnetsTable({incidents}: IncidentTableProps) {
 
     const navigate = useNavigate();
 
     return (
-        <>
-        {         
-        incidents.length === 0 ? 
-            <NoIncidentsTable /> : null
-        }
-
         <Table striped bordered hover responsive>
             <thead>
                 <tr>    
@@ -54,7 +37,7 @@ function IncidentsTable({incidents}: IncidentTableProps)  {
                 incidents.map((incident, index) => (
 
                 <tr className={incident.category.toLowerCase()} style={{cursor: 'pointer'}} onClick={() => { 
-                    navigate(`/incident/${incidents[index].number}`)
+                    navigate(`/view_incident/${incidents[index].number}`, {state:{incident: incidents[index]}});
                 }}>
                     <td>{incident.number}</td>
                     <td>{new Intl.DateTimeFormat('en-US', {hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(Date.parse(incident.date))}</td>
@@ -71,14 +54,20 @@ function IncidentsTable({incidents}: IncidentTableProps)  {
                             }
                         </ul>
                     </td>
-                </tr>
-                    
+                </tr>       
             ))
             }
             </tbody>
         </Table>
-        </>
+    )
+    }
+
+function IncidentsTable({incidents}: IncidentTableProps)  {
+
+    return (
+        incidents.length > 0  ? <PopulatedIncidnetsTable incidents={incidents} /> : <NoIncidentsTable />
       );
 }
 
-export default IncidentsTable
+
+export default IncidentsTable;

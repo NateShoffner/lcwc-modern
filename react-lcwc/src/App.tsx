@@ -1,23 +1,32 @@
 import './App.css';
-
+import {
+    QueryClient,
+    QueryClientProvider,
+  } from 'react-query'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from './pages/Layout';
 import NoPage from './pages/NoPage';
 import Incidents from './pages/Incidents';
 import Home from './pages/Home';
+import IncidentPage from './pages/IncidentPage';
+
+const queryClient = new QueryClient()
 
 function App() {
 
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="incidents" element={<Incidents />} />
-                <Route path="*" element={<NoPage />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="incidents" element={<Incidents />} />
+                    <Route path="view_incident/:incidentID" element={<IncidentPage incidentID={0} />} />
+                    <Route path="*" element={<NoPage />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </QueryClientProvider>
       );
 }
 
