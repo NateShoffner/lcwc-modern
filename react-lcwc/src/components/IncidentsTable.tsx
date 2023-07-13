@@ -14,7 +14,7 @@ function NoIncidentsTable() {
     )
 }
 
-function PopulatedIncidnetsTable({incidents}: IncidentTableProps) {
+function PopulatedIncidentsTable({incidents}: IncidentTableProps) {
 
     const navigate = useNavigate();
 
@@ -65,7 +65,7 @@ function PopulatedIncidnetsTable({incidents}: IncidentTableProps) {
 function IncidentsTable({incidents}: IncidentTableProps)  {
 
     return (
-        incidents.length > 0  ? <PopulatedIncidnetsTable incidents={incidents} /> : <NoIncidentsTable />
+        incidents.length > 0  ? <PopulatedIncidentsTable incidents={incidents} /> : <NoIncidentsTable />
       );
 }
 

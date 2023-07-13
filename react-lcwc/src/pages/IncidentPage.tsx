@@ -2,11 +2,10 @@ import axios from "axios";
 import { Col, Container, Row, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import {MarkerF} from '@react-google-maps/api'
+import { MarkerF } from '@react-google-maps/api'
 import { useQuery } from "react-query"
 import { useMemo } from "react";
 import { Coordinates, Unit } from "../lcwc/incident";
-
 
 interface MapProps {
     coords: Coordinates;
@@ -39,7 +38,7 @@ const IncidentPage = () => {
     let { incidentNumber } = useParams();
 
     const { isLoaded } = useLoadScript ({
-        googleMapsApiKey: "AIzaSyBLLVgK6Cbix6hX4Ft73ZOH9G5dPBMtwWs"
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY
       });
 
     const { isLoading, isError, data, error, refetch } = useQuery(["incident"], () =>
