@@ -16,3 +16,11 @@ tr.traffic td{
     background-color: #4369e6 !important;
     color: #000000 !important;
 }
+
+
+
+.map-container {
+    width: 100%;
+    height: 100%;
+  }
+  

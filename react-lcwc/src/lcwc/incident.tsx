@@ -1,33 +1,22 @@
-class Unit {
-    name: string;
-
-    constructor(name: string) {
-        this.name = name;
-    }
+export interface Incident {
+  category: string
+  date: string
+  description: string
+  municipality: string
+  intersection: string
+  units: Unit[]
+  number: number
+  priority?: number
+  agency: string
+  public: boolean
+  coordinates: Coordinates
 }
 
-class Incident {
-    category: string;
-    date: string;
-    description: string;
-    municipality: string;
-    intersection: string;
-    number: number;
-    priority?: number
-    agency: string;
-    units: Unit[];
-
-    constructor(category: string, date: string, description: string, municipality: string, intersection: string, number: number, priority: number, agency: string, units: Unit[]) {
-        this.category = category;
-        this.date = date;
-        this.description = description;
-        this.municipality = municipality;
-        this.intersection = intersection;
-        this.number = number;
-        this.priority = priority;
-        this.agency = agency;
-        this.units = units;
-    }
+export interface Unit {
+  name: string
 }
 
-export default Incident;
+export interface Coordinates {
+  longitude: number
+  latitude: number
+}
