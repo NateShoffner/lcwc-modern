@@ -1,4 +1,4 @@
-import Incident from '../lcwc/incident';
+import {Incident} from '../lcwc/incident';
 import { useEffect, useState } from 'react';
 import IncidentsTable from '../components/IncidentsTable';
 

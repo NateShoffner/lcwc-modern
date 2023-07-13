@@ -1,5 +1,5 @@
 import { Alert, Table } from 'react-bootstrap';
-import Incident from '../lcwc/incident';
+import {Incident} from '../lcwc/incident';
 import { useNavigate } from "react-router-dom";
 
 interface IncidentTableProps {

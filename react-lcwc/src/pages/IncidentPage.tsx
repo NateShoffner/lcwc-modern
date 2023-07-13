@@ -5,12 +5,23 @@ import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import {MarkerF} from '@react-google-maps/api'
 import { useQuery } from "react-query"
 import { useMemo } from "react";
-import { Coordinates } from "../lcwc/incident";
+import { Coordinates, Unit } from "../lcwc/incident";
 
 
 interface MapProps {
     coords: Coordinates;
 }
+
+function IncidentStatus({status}: {status: string}) {
+    if (status === 'Active') {
+        return <span className='badge bg-danger'>{status}</span>
+    } else if (status === 'Resolved') {
+        return <span className='badge bg-success'>{status}</span>
+    } else {
+        return <span className='badge bg-secondary'>{status}</span>
+    }
+}
+
 
 function Map({coords}: MapProps) {
     const center = useMemo(() => ({ lat: coords.latitude, lng: coords.longitude }), []);
@@ -33,7 +44,7 @@ const IncidentPage = () => {
 
     const { isLoading, isError, data, error, refetch } = useQuery(["incident"], () =>
     axios
-        .get("http://127.0.0.1:8000/api/v1/incidents/active/" + incidentNumber)
+        .get("http://127.0.0.1:8000/api/v1/incident/" + incidentNumber)
         .then((res) => res.data)
     );
 
@@ -57,6 +68,10 @@ const IncidentPage = () => {
         <Table striped bordered hover>
             <tbody>
                 <tr>
+                    <td>Status</td>
+                    <td><IncidentStatus status={data.status} /></td>
+                </tr>
+                <tr>
                     <td>Category</td>
                     <td>{data.category}</td>
                 </tr>
@@ -75,6 +90,18 @@ const IncidentPage = () => {
                 <tr>
                     <td>Intersection</td>
                     <td>{data.intersection}</td>
+                </tr>
+                <tr>
+                    <td>Units</td>
+                    <td>
+                        <ul className='list-unstyled'>
+                            {
+                                data.units.map((unit: Unit) => (
+                                    <li>{unit.name}</li>
+                                ))
+                            }
+                        </ul>
+                    </td>
                 </tr>
             </tbody>
         </Table>

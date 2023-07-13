@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Row from 'react-bootstrap/Row';
-import Incident from '../lcwc/incident';
+import {Incident} from '../lcwc/incident';
 import IncidentCard from './IncidentCard';
 
 interface IncidentListProps {

@@ -10,6 +10,8 @@ export interface Incident {
   agency: string
   public: boolean
   coordinates: Coordinates
+
+  status: string
 }
 
 export interface Unit {
