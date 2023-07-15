@@ -9,6 +9,7 @@ import NoPage from './pages/NoPage';
 import Incidents from './pages/Incidents';
 import Home from './pages/Home';
 import IncidentPage from './pages/IncidentPage';
+import MapPage from './pages/Map';
 
 const queryClient = new QueryClient()
 
@@ -19,10 +20,11 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path="incidents" element={<Incidents />} />
-                    <Route path="view_incident/:incidentNumber" element={<IncidentPage />} />
-                    <Route path="*" element={<NoPage />} />
+                        <Route index element={<Home />} />
+                        <Route path="incidents" element={<Incidents />} />
+                        <Route path="view_incident/:incidentNumber" element={<IncidentPage />} />
+                        <Route path="map" element={<MapPage />} />
+                        <Route path="*" element={<NoPage />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

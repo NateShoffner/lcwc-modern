@@ -4,6 +4,10 @@ import Container from 'react-bootstrap/Container';
 import { Badge, Button, Form } from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
 import { useState } from 'react';
+import { faHome, faTriangleExclamation, faMap } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import { useQuery } from 'react-query';
 
 const Navigation = () => {
 
@@ -11,18 +15,16 @@ const Navigation = () => {
 
     function getIncidents() {
         console.log("Getting incidents...");
-        
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/incidents/active`).then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Request failed!');
-        }, networkError => console.log(networkError.message)
-        ).then(jsonResponse => {
-            const incidents = jsonResponse;
-            setIncidentCount(incidents.length);
-            setTimeout(getIncidents, 5000);
-        })
+        console.log(`${import.meta.env.VITE_API_BASE_URL}/incidents/active`)
+
+        const { isLoading, isError, data, error, refetch } = useQuery(["activeIncidents"], () =>
+        axios
+            .get(`${import.meta.env.VITE_API_BASE_URL}/incidents/active`)
+            .then((res) => res.data).then(jsonResponse => {
+                const incidents = jsonResponse;
+                setIncidentCount(incidents.length);
+            })
+        );
     }
 
     getIncidents();
@@ -38,13 +40,15 @@ const Navigation = () => {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-                
+            <Nav className="me-auto">     
                 <LinkContainer to="/">
-                    <Nav.Link >Home</Nav.Link>
+                    <Nav.Link className='mx-2'><FontAwesomeIcon icon={faHome} className='me-2' /> Home</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="incidents">
-                    <Nav.Link >Active Incidents: <Badge bg="danger" className='ms-2'>{ incidentCount }</Badge></Nav.Link>
+                    <Nav.Link className='mx-2'><FontAwesomeIcon icon={faTriangleExclamation} className='me-2' /> Active Incidents: <Badge bg="danger" className='ms-2'>{ incidentCount }</Badge></Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="map">
+                    <Nav.Link className='mx-2'><FontAwesomeIcon icon={faMap} className='me-2' /> Incident Map</Nav.Link>
                 </LinkContainer>
             </Nav>
             <Form className="d-flex">
