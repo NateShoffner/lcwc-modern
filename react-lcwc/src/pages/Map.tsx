@@ -1,70 +1,75 @@
-import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api'
-import axios from 'axios';
-import { useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
+import { GoogleMap, HeatmapLayerF, MarkerF, useJsApiLoader, LoadScriptProps } from '@react-google-maps/api'
+import { useGetActiveIncidents } from '../../hooks/useGetIncidents';
+import { Alert } from 'react-bootstrap';
+import { Incident } from '../../api/incident.types';
 
-const MapPage = () => {
+interface IncidentMapProps {
+    incidents: Incident[];
+}
+
+const googleMapsLibraries: LoadScriptProps['libraries'] = ["visualization"];
+
+const IncidentMap = ({incidents}: IncidentMapProps) => {
+
     const lanCo = { lat: 40.0467, lng: -76.1784 }
 
-    const { isLoaded } = useLoadScript ({
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+    const { isLoaded } = useJsApiLoader ({
+        id: 'google-map-script',
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+        libraries: googleMapsLibraries
      });
 
-     const [incidents, setIncidents] = useState([]);
+    if (!isLoaded) {
+        return (<h1>Loading Map...</h1>)
+    }
+    else {
+        let incidentCoords = Array<google.maps.LatLng>();
+        incidents.map((incident) => {
+            incidentCoords.push(new google.maps.LatLng(incident.coordinates.latitude, incident.coordinates.longitude))
+        })
 
-    /*
-    let incidentCoords = Array<google.maps.LatLng>();
-    incidents.map((incident) => {
-        incidentCoords.push(new google.maps.LatLng(incident.coordinates.latitude, incident.coordinates.longitude))
-    })
-    */
+        return (
+            <GoogleMap 
+                zoom={10}
+                center={lanCo}
+                mapContainerClassName="full-map-container"
+                mapContainerStyle={{width: '600px', height: '400px'}}>
+                <HeatmapLayerF data={incidentCoords}/>
+            </GoogleMap>
+        )
+    }
+}
 
-     const data = useMemo(() => {
-        const incidentCoords = new Array(incidents.length)
-        return incidentCoords
-      }, [])
+const MapPage = () => {
+    const activeIncidents = useGetActiveIncidents();
 
-     function getIncidents() {
-         console.log("Getting incidents...");
- 
-         const { isLoading, isError, data, error, refetch } = useQuery(["activeIncidents"], () =>
-         axios
-             .get(`${import.meta.env.VITE_API_BASE_URL}/incidents/active`)
-             .then((res) => res.data).then(jsonResponse => {
-                 const incidents = jsonResponse;
-                 setIncidents(incidents);
-             })
-         );
-     }
- 
-     getIncidents();
+    if (activeIncidents.isLoading) {
+        return (<Alert variant='info'>Loading...</Alert>)
+    }
+
+    if (activeIncidents.isError) {
+        return (<Alert variant='danger'>Error Loading Incidents</Alert>)
+    }
+
+    if (activeIncidents.isSuccess) {
+
+        return (
+            <>
+            <div className='map'>
+                <div className='map-container'>
+                    <h2 className='mb-5'>Incident Map</h2>
+                    <IncidentMap incidents={activeIncidents.data} />
+                </div>
+            </div>
+        </>
+        )
+    }
 
     return (
         <>
-        <div className='map'>
-            <div className='map-container'>
-                <h2 className='mb-5'>Incident Map</h2>
-                
-                {!isLoaded ? (
-                <h1>Loading Map...</h1>
-      ) : (
-
-        <GoogleMap 
-            zoom={10}
-            center={lanCo}
-            mapContainerClassName="full-map-container"
-            mapContainerStyle={{width: '600px', height: '400px'}}>
-            { 
-                incidents.map((incident) => ( 
-                    <MarkerF position={{ lat: incident.coordinates.latitude, lng: incident.coordinates.longitude }} />
-                ))
-            }
-        </GoogleMap>
-      )}
-
-            </div>
-        </div>
-    </>
+        <h2 className='mb-5'>Incident Map</h2>
+        <Alert variant='danger'>Error Loading Incidents</Alert>
+        </>
     )
 }
 

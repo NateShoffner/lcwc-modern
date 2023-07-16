@@ -1,8 +1,5 @@
 import './App.css';
-import {
-    QueryClient,
-    QueryClientProvider,
-  } from 'react-query'
+import { QueryClientProvider } from 'react-query';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from './pages/Layout';
 import NoPage from './pages/NoPage';
@@ -10,8 +7,7 @@ import Incidents from './pages/Incidents';
 import Home from './pages/Home';
 import IncidentPage from './pages/IncidentPage';
 import MapPage from './pages/Map';
-
-const queryClient = new QueryClient()
+import { queryClient } from "../api/query-client";
 
 function App() {
 

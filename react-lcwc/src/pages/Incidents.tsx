@@ -1,42 +1,29 @@
-import {Incident} from '../lcwc/incident';
-import { useEffect, useState } from 'react';
 import IncidentsTable from '../components/IncidentsTable';
+import { useGetActiveIncidents } from '../../hooks/useGetIncidents';
+import { Alert } from 'react-bootstrap';
 
 const Incidents = () => {
 
-const [incidents, setIncidents] = useState(Array<Incident>());
+    const activeIncidents = useGetActiveIncidents();
 
-function getIncidents() {
-    console.log("Getting incidents...");
-    fetch('http://127.0.0.1:8000/api/v1/incidents/active').then(response => {
-    if (response.ok) {
-        return response.json();
+    if (activeIncidents.isLoading) {
+        return (<Alert variant='info'>Loading...</Alert>)
     }
-    throw new Error('Request failed!');
-    }, networkError => console.log(networkError.message)
-    ).then(jsonResponse => {
-        const incidents = jsonResponse;
-        setIncidents(incidents);
-    })
-}
 
-useEffect(() => {
-    getIncidents();
+    if (activeIncidents.isError) {
+        return (<Alert variant='danger'>Error Loading Incidents</Alert>)
+    }
 
-    const interval = setInterval(() => {
-        getIncidents();
-      }, 5000);
-    
-      return () => clearInterval(interval);
-    }, [])
+    if (activeIncidents.isSuccess) {
+        return (
+            <>
+            <h2 className='mb-5'>Active Incidents: ({activeIncidents.data.length}) </h2>
+            <IncidentsTable incidents={activeIncidents.data} />
+            </>
+        )
+    }
 
-  return (
-    <>
-    <h2 className='mb-5'>Active Incidents: ({incidents.length}) </h2>
-
-    <IncidentsTable incidents={incidents} />
-    </>
-  )
+    return (<></>)
 }
 
 export default Incidents

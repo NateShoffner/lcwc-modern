@@ -2,8 +2,8 @@ import { useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Row from 'react-bootstrap/Row';
-import {Incident} from '../lcwc/incident';
 import IncidentCard from './IncidentCard';
+import { Incident } from '../../api/incident.types';
 
 interface IncidentListProps {
     categoryName: string;
@@ -21,7 +21,7 @@ function IncidentList({categoryName, incidents}: IncidentListProps)  {
             incidents.length === 0 ? <Col><p>There are currentlly no active {categoryName} incidents.</p></Col> :
                 incidents.map((incident) => (
             <CardGroup>
-                <IncidentCard category={incident.category} description={incident.description} municipality={incident.municipality} intersection={incident.intersection} number={incident.number} priority={incident.priority} agency={incident.agency} units={incident.units} />
+                <IncidentCard {...incident} />
             </CardGroup>
         ))
         }

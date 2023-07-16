@@ -3,31 +3,23 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { Badge, Button, Form } from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { faHome, faTriangleExclamation, faMap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useGetActiveIncidents } from '../../hooks/useGetIncidents';
 
 const Navigation = () => {
 
-    const [incidentCount, setIncidentCount] = useState(0);
+    const activeIncidents = useGetActiveIncidents();
+    let incidentCount = 0;
 
-    function getIncidents() {
-        console.log("Getting incidents...");
-        console.log(`${import.meta.env.VITE_API_BASE_URL}/incidents/active`)
-
-        const { isLoading, isError, data, error, refetch } = useQuery(["activeIncidents"], () =>
-        axios
-            .get(`${import.meta.env.VITE_API_BASE_URL}/incidents/active`)
-            .then((res) => res.data).then(jsonResponse => {
-                const incidents = jsonResponse;
-                setIncidentCount(incidents.length);
-            })
-        );
+    if (activeIncidents.isError) {
+        incidentCount = 0;
     }
 
-    getIncidents();
+    if (activeIncidents.isSuccess) {
+        incidentCount = activeIncidents.data.length;
+    }
 
   return (
     <>

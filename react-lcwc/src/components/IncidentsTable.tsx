@@ -1,5 +1,5 @@
 import { Alert, Table } from 'react-bootstrap';
-import {Incident} from '../lcwc/incident';
+import { Incident } from '../../api/incident.types';
 import { useNavigate } from "react-router-dom";
 
 interface IncidentTableProps {
@@ -36,7 +36,7 @@ function PopulatedIncidentsTable({incidents}: IncidentTableProps) {
             {
                 incidents.map((incident, index) => (
 
-                <tr className={incident.category.toLowerCase()} style={{cursor: 'pointer'}} onClick={() => { 
+                <tr className={incident.category.toLowerCase()} key={incident.number} style={{cursor: 'pointer'}} onClick={() => { 
                     navigate(`/view_incident/${incidents[index].number}`, {state:{incident: incidents[index]}});
                 }}>
                     <td>{incident.number}</td>
@@ -49,7 +49,7 @@ function PopulatedIncidentsTable({incidents}: IncidentTableProps) {
                         <ul className='list-unstyled'>
                             {
                                 incident.units.map((unit) => (
-                                    <li>{unit.name}</li>
+                                    <li key={unit.name}>{unit.name}</li>
                                 ))
                             }
                         </ul>

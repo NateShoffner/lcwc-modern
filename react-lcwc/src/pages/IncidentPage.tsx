@@ -1,11 +1,9 @@
-import axios from "axios";
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Alert, Col, Container, Row, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { MarkerF } from '@react-google-maps/api'
-import { useQuery } from "react-query"
-import { useMemo } from "react";
-import { Coordinates, Unit } from "../lcwc/incident";
+import { Coordinates, Unit } from "../../api/incident.types";
+import { useGetIncident } from "../../hooks/useGetIncident";
 
 interface MapProps {
     coords: Coordinates;
@@ -21,10 +19,8 @@ function IncidentStatus({status}: {status: string}) {
     }
 }
 
-
 function Map({coords}: MapProps) {
-    const center = useMemo(() => ({ lat: coords.latitude, lng: coords.longitude }), []);
-  
+    const center = { lat: coords.latitude, lng: coords.longitude };
     return (
         <>      
         <GoogleMap zoom={15} center={center} mapContainerClassName="map-container">
@@ -37,95 +33,81 @@ function Map({coords}: MapProps) {
 const IncidentPage = () => {
     let { incidentNumber } = useParams();
 
+    let incidentNumber2 = Number(incidentNumber)
+
     const { isLoaded } = useLoadScript ({
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-      });
+    });
 
-    const { isLoading, isError, data, error, refetch } = useQuery(["incident"], () =>
-    axios
-        .get("http://127.0.0.1:8000/api/v1/incident/" + incidentNumber)
-        .then((res) => res.data)
-    );
+    const incident = useGetIncident(incidentNumber2);
 
-
-    if (error) return <p>ERROR</p>
-
-  return (
-    <>
-
-    <Container>
-
-    <Row>
-
-        <Col className='md-6'>
-        {!isLoaded ? (
-            <h1>Loading Incident...</h1>
-        ) : (
+    if (incident.isLoading) {
+        return (<Alert variant='info'>Loading...</Alert>)
+    }
+  
+    if (incident.isError) {
+        return (<Alert variant='danger'>Error Loading Incidents</Alert>)
+    }
+  
+    if (incident.isSuccess) {
+        return (
             <>
-        <h1 className="mb-5">Incident #{data.number}</h1>
+            <h1>Incident #{incident.data.number}</h1>
+            <Row>
+            <Col className='md-6'>
+            
+            <Table striped bordered hover>
+                <tbody>
+                    <tr>
+                        <td>Category</td>
+                        <td>{incident.data.category}</td>
+                    </tr>
+                    <tr>
+                        <td>Priority</td>
+                        <td>{incident.data.priority ?? 'N/A'}</td>
+                    </tr>
+                    <tr>
+                        <td>Agency</td>
+                        <td>{incident.data.agency}</td>
+                    </tr>
+                    <tr>
+                        <td>Municipality</td>
+                        <td>{incident.data.municipality}</td>
+                    </tr>
+                    <tr>
+                        <td>Intersection</td>
+                        <td>{incident.data.intersection}</td>
+                    </tr>
+                    <tr>
+                        <td>Units</td>
+                        <td>
+                            <ul className='list-unstyled'>
+                                {
+                                    incident.data.units.map((unit: Unit) => (
+                                        <li key={unit.name}>{unit.name}</li>
+                                    ))
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </Table>
 
-        <Table striped bordered hover>
-            <tbody>
-                <tr>
-                    <td>Status</td>
-                    <td><IncidentStatus status={data.status} /></td>
-                </tr>
-                <tr>
-                    <td>Category</td>
-                    <td>{data.category}</td>
-                </tr>
-                <tr>
-                    <td>Priority</td>
-                    <td>{data.priority ?? 'N/A'}</td>
-                </tr>
-                <tr>
-                    <td>Agency</td>
-                    <td>{data.agency}</td>
-                </tr>
-                <tr>
-                    <td>Municipality</td>
-                    <td>{data.municipality}</td>
-                </tr>
-                <tr>
-                    <td>Intersection</td>
-                    <td>{data.intersection}</td>
-                </tr>
-                <tr>
-                    <td>Units</td>
-                    <td>
-                        <ul className='list-unstyled'>
-                            {
-                                data.units.map((unit: Unit) => (
-                                    <li>{unit.name}</li>
-                                ))
-                            }
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </Table>
+            </Col>
+
+            <Col className='md-6'>
+            {!isLoaded ? (
+            <h1>Loading Map...</h1>
+        ) : (
+            <Map coords={incident.data.coordinates}  /> 
+        )}
+            </Col>
+            </Row>
             </>
-            )}
-        </Col>
+        )
+    }
 
-        <Col className='md-6'>
-        {!isLoaded ? (
-        <h1>Loading Map...</h1>
-      ) : (
-        <Map coords={data.coordinates}  /> 
-      )}
-        </Col>
-    </Row>
-
-
-    </Container>
-
-
-
-
-
-    </>
-  )
+    return (<></>)
 }
 
 export default IncidentPage
