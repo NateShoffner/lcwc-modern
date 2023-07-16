@@ -3,10 +3,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { Badge, Button, Form } from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
-import { useEffect, useState } from 'react';
 import { faHome, faTriangleExclamation, faMap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useGetActiveIncidents } from '../../hooks/useGetIncidents';
+import { useGetActiveIncidents } from '@hooks/useGetIncidents';
 
 const Navigation = () => {
 

@@ -2,8 +2,8 @@ import { Alert, Col, Container, Row, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { MarkerF } from '@react-google-maps/api'
-import { Coordinates, Unit } from "../../api/incident.types";
-import { useGetIncident } from "../../hooks/useGetIncident";
+import { Coordinates, Unit } from "@api/incident.types";
+import { useGetIncident } from "@hooks/useGetIncident";
 
 interface MapProps {
     coords: Coordinates;

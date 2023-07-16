@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Card from 'react-bootstrap/Card';
 import { faHashtag, faClock, faArrowUpWideShort, faCalendarAlt, faLocationPin, faFireExtinguisher, faAmbulance, faTrafficLight } from '@fortawesome/free-solid-svg-icons'
-import { Incident } from '../../api/incident.types';
+import { Incident } from '@api/incident.types';
 import UnitIcon from './UnitIcon';
 
 function IncidentCard(incident: Incident) {

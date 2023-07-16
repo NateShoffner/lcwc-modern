@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Row from 'react-bootstrap/Row';
 import IncidentCard from './IncidentCard';
-import { Incident } from '../../api/incident.types';
+import { Incident } from '@api/incident.types';
 
 interface IncidentListProps {
     categoryName: string;

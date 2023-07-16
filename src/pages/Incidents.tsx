@@ -1,5 +1,5 @@
-import IncidentsTable from '../components/IncidentsTable';
-import { useGetActiveIncidents } from '../../hooks/useGetIncidents';
+import IncidentsTable from '@components/IncidentsTable';
+import { useGetActiveIncidents } from '@hooks/useGetIncidents';
 import { Alert } from 'react-bootstrap';
 
 const Incidents = () => {

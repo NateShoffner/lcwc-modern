@@ -17,11 +17,13 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-        "@api/*": ["api/*"],
-        "@components/*": ["components/*"],
-        "hooks/*": ["hooks/*"],
+        "@api/*": ["./src/api/*"],
+        "@components/*": ["./src/components/*"],
+        "@hooks/*": ["./src/hooks/*"],
+        "@pages/*": ["./src/pages/*"],
     }
   },
-  "include": ["src"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

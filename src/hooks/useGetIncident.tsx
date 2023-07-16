@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
-import { Incident } from "../api/incident.types";
-import { getIncident } from "../api/incidents";
+import { Incident } from "@api/incident.types";
+import { getIncident } from "@api/incidents";
 
 export function useGetIncident(number: number) {
     const key = `incident_${number}`;

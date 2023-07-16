@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
-import { Incident } from "../api/incident.types";
-import { getActiveIncidents } from "../api/incidents";
+import { Incident } from "@api/incident.types";
+import { getActiveIncidents } from "@api/incidents";
 
 export function useGetActiveIncidents() {
     const query = useQuery<Incident[], Error>(

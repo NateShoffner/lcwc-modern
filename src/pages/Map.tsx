@@ -1,7 +1,7 @@
 import { GoogleMap, HeatmapLayerF, MarkerF, useJsApiLoader, LoadScriptProps } from '@react-google-maps/api'
-import { useGetActiveIncidents } from '../../hooks/useGetIncidents';
+import { useGetActiveIncidents } from '@hooks/useGetIncidents';
 import { Alert } from 'react-bootstrap';
-import { Incident } from '../../api/incident.types';
+import { Incident } from '@api/incident.types';
 
 interface IncidentMapProps {
     incidents: Incident[];

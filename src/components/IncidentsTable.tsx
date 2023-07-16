@@ -1,5 +1,5 @@
 import { Alert, Table } from 'react-bootstrap';
-import { Incident } from '../../api/incident.types';
+import { Incident } from '@api/incident.types';
 import { useNavigate } from "react-router-dom";
 
 interface IncidentTableProps {
