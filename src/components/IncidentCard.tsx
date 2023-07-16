@@ -1,17 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Card from 'react-bootstrap/Card';
 import { faHashtag, faClock, faArrowUpWideShort, faCalendarAlt, faLocationPin, faFireExtinguisher, faAmbulance, faTrafficLight } from '@fortawesome/free-solid-svg-icons'
-import Incident from '../lcwc/incident';
-
-const categoryIcons = {
-    'Fire': faFireExtinguisher,
-    'Medical': faAmbulance,
-    'Traffic': faTrafficLight
-}
-
-function getUnitIcon(category: string) {
-    return categoryIcons[category as keyof typeof categoryIcons];
-}
+import { Incident } from '../../api/incident.types';
+import UnitIcon from './UnitIcon';
 
 function IncidentCard(incident: Incident) {
   return (
@@ -38,7 +29,7 @@ function IncidentCard(incident: Incident) {
                         <p className='mb-auto'>{incident.agency}</p>
                     </div>
                     <div className="col-sm-12 col-md-12 col-lg-6 mb-3">
-                        <p className='fw-bold mb-auto'><FontAwesomeIcon icon={getUnitIcon(incident.category)} /> Assigned Units: ({incident.units.length})</p>
+                        <p className='fw-bold mb-auto'><UnitIcon category={incident.category} /> Assigned Units: ({incident.units.length})</p>
                     </div>
                 </div>
                 </Card.Text>
