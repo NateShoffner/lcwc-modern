@@ -4,6 +4,8 @@ import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { MarkerF } from '@react-google-maps/api'
 import { Coordinates, Unit } from "@api/incident.types";
 import { useGetIncident } from "@hooks/useGetIncident";
+import { normalizeAgency } from "@utils/IncidentUtils";
+import { normalizeName } from "normalize-text";
 
 interface MapProps {
     coords: Coordinates;
@@ -58,9 +60,13 @@ const IncidentPage = () => {
             
             <Table striped bordered hover>
                 <tbody>
-                    <tr>
+                <tr>
                         <td>Category</td>
                         <td>{incident.data.category}</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>{normalizeName(incident.data.description)}</td>
                     </tr>
                     <tr>
                         <td>Priority</td>
@@ -68,15 +74,15 @@ const IncidentPage = () => {
                     </tr>
                     <tr>
                         <td>Agency</td>
-                        <td>{incident.data.agency}</td>
+                        <td>{normalizeAgency(incident.data.agency)}</td>
                     </tr>
                     <tr>
                         <td>Municipality</td>
-                        <td>{incident.data.municipality}</td>
+                        <td>{normalizeName(incident.data.municipality)}</td>
                     </tr>
                     <tr>
                         <td>Intersection</td>
-                        <td>{incident.data.intersection}</td>
+                        <td>{normalizeName(incident.data.intersection)}</td>
                     </tr>
                     <tr>
                         <td>Units</td>
