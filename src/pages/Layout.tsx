@@ -10,7 +10,7 @@ const Layout = () => {
         <Navigation />
     </header>
 
-    <main className="flex-shrink-0">
+    <main>
         <Container>
             <Outlet />
         </Container>
