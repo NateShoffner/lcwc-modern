@@ -6,8 +6,19 @@ import {LinkContainer} from 'react-router-bootstrap'
 import { faHome, faTriangleExclamation, faMap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGetActiveIncidents } from '@hooks/useGetIncidents';
+import { useState } from 'react';
 
 const Navigation = () => {
+
+    const [expanded, setExpanded] = useState(false);
+
+    const navToggle = () => {
+        setExpanded(expanded ? false : true);
+    };
+
+    const closeNav = () => {
+        setExpanded(false);
+    };
 
     const activeIncidents = useGetActiveIncidents();
     let incidentCount = 0;
@@ -22,23 +33,23 @@ const Navigation = () => {
 
   return (
     <>
-    <Navbar expand="md" className="bg-body-tertiary fixed-top">
+    <Navbar expand="lg" className="bg-body-tertiary fixed-top" expanded={expanded}>
         <Container>
             <Navbar.Brand>
                 <LinkContainer to="/">
-                    <Nav.Link >LCWC++</Nav.Link>
+                    <Nav.Link onClick={closeNav}>LCWC++</Nav.Link>
                 </LinkContainer>
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={navToggle} />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">     
-                <LinkContainer to="/">
+                <LinkContainer to="/" onClick={closeNav}>
                     <Nav.Link className='mx-2'><FontAwesomeIcon icon={faHome} className='me-2' /> Home</Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="incidents">
+                <LinkContainer to="incidents" onClick={closeNav}>
                     <Nav.Link className='mx-2'><FontAwesomeIcon icon={faTriangleExclamation} className='me-2' /> Active Incidents: <Badge bg="danger" className='ms-2'>{ incidentCount }</Badge></Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="map">
+                <LinkContainer to="map" onClick={closeNav}>
                     <Nav.Link className='mx-2'><FontAwesomeIcon icon={faMap} className='me-2' /> Incident Map</Nav.Link>
                 </LinkContainer>
             </Nav>
