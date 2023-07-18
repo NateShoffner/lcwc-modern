@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { Badge, Button, Form } from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
-import { faHome, faTriangleExclamation, faMap } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faTriangleExclamation, faMap, faCode } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGetActiveIncidents } from '@hooks/useGetIncidents';
 import { useState } from 'react';
@@ -51,6 +51,9 @@ const Navigation = () => {
                 </LinkContainer>
                 <LinkContainer to="map" onClick={closeNav}>
                     <Nav.Link className='mx-2'><FontAwesomeIcon icon={faMap} className='me-2' /> Incident Map</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="api" onClick={closeNav}>
+                    <Nav.Link className='mx-2'><FontAwesomeIcon icon={faCode} className='me-2' /> API</Nav.Link>
                 </LinkContainer>
             </Nav>
             <Form className="d-flex">

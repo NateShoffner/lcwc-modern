@@ -8,6 +8,7 @@ import Home from '@pages/Home';
 import IncidentPage from '@pages/IncidentPage';
 import MapPage from '@pages/Map';
 import { queryClient } from "@api/query-client";
+import ApiPage from '@pages/Api';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                         <Route path="incidents" element={<Incidents />} />
                         <Route path="view_incident/:incidentNumber" element={<IncidentPage />} />
                         <Route path="map" element={<MapPage />} />
+                        <Route path="api" element={<ApiPage />} />
                         <Route path="*" element={<NoPage />} />
                     </Route>
                 </Routes>
