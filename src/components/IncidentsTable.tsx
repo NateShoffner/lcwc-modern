@@ -2,7 +2,7 @@ import { Alert, Table } from 'react-bootstrap';
 import { Incident } from '@api/incident.types';
 import { useNavigate } from "react-router-dom";
 import { capitalizeFirstLetter, normalizeName } from 'normalize-text'
-import { normalizeAgency } from '@utils/IncidentUtils';
+import { normalizeAgency, normalizeDescription } from '@utils/IncidentUtils';
 
 interface IncidentTableProps {
     incidents: Incident[];
@@ -43,7 +43,7 @@ function PopulatedIncidentsTable({incidents}: IncidentTableProps) {
                 }}>
                     <td>{incident.number}</td>
                     <td>{new Intl.DateTimeFormat('en-US', {hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(Date.parse(incident.date))}</td>
-                    <td>{normalizeName(incident.description)}</td>     
+                    <td>{normalizeDescription(incident.description)}</td>     
                     <td>{normalizeName(incident.intersection)}<br />{normalizeName(incident.municipality)}</td>
                     <td>{normalizeAgency(incident.agency)}</td>
                     <td>{incident.priority ?? 'N/A'}</td>
