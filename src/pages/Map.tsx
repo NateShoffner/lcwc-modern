@@ -24,6 +24,11 @@ const IncidentMap = ({incidents}: IncidentMapProps) => {
     }
     else {
         let incidentCoords = Array<google.maps.LatLng>();
+
+        if (incidents.length === 0) {
+            return (<Alert variant='info'>No Incidents</Alert>)
+        }
+        
         incidents.map((incident) => {
             incidentCoords.push(new google.maps.LatLng(incident.coordinates.latitude, incident.coordinates.longitude))
         })
