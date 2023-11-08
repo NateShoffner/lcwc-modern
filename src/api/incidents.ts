@@ -1,13 +1,13 @@
 import { axios } from "./axios";
-import type { Incident } from "./incident.types";
+import type { Incident, IncidentsData } from "./incident.types";
 
 export async function getActiveIncidents(
   options?: { signal?: AbortSignal }
 ) {
-  const { data } = await axios.get<Incident[]>("/incidents/active", {
+  const { data } = await axios.get<IncidentsData>("/incidents/active", {
     signal: options?.signal,
   });
-  return data;
+  return data.data;
 }
 
 export async function getIncident(

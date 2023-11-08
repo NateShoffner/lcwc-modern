@@ -1,10 +1,24 @@
 export type Unit = {
-    name: string
+    id: string
+    name: string,
+    short_name?: string
+    added_at: string
+    removed_at?: string,
+    last_seen: string
+    automatically_removed: false
 }
   
 export type Coordinates = {
     longitude: number
     latitude: number
+}
+
+export type Meta = {
+    added_at: string
+    updated_at: string
+    resolved_at: string
+    client: string
+    automatically_resolved: boolean
 }
 
 export type Incident = {
@@ -17,6 +31,11 @@ export type Incident = {
     number: number
     priority?: number
     agency: string
-    public: boolean
+    meta: Meta
     coordinates: Coordinates
 };
+
+export type IncidentsData = {
+    data: Incident[]
+    count: number
+}
