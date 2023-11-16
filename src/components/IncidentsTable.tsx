@@ -36,7 +36,7 @@ function PopulatedIncidentsTable({incidents}: IncidentTableProps) {
                 incidents.map((incident, index) => (
 
                 <tr className={incident.category.toLowerCase()} key={incident.number} style={{cursor: 'pointer'}} onClick={() => { 
-                    navigate(`/view_incident/${incidents[index].number}`, {state:{incident: incidents[index]}});
+                    navigate(`/incident/${incidents[index].number}`, {state:{incident: incidents[index]}});
                 }}>
                     <td>{new Intl.DateTimeFormat('en-US', {hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(Date.parse(incident.meta.added_at))}</td>
                     <td>{normalizeDescription(incident.description)}</td>     
