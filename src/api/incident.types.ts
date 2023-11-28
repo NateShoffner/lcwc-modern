@@ -35,6 +35,10 @@ export type Incident = {
     coordinates: Coordinates
 };
 
+export type IncidentData = {
+    data: Incident
+}
+
 export type IncidentsData = {
     data: Incident[]
     count: number
