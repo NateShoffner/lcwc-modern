@@ -17,28 +17,22 @@ const Jumbotron = () => {
 
         <Row>
 
-            <Col className='col-sm-12 col-md-6 col-lg-3 text-center mb-5'>
+            <Col className='col-sm-12 col-md-6 col-lg-4 text-center mb-5'>
                 <h3 className="fw-normal"><FontAwesomeIcon icon={faSearch} /> Search</h3>
                 <p>Search for incidents both past and present.</p>
-                <p><a className="btn btn-secondary" href="#">Coming Soon</a></p>
+                <p><a className="btn btn-primary" href="/search">Start Searching</a></p>
             </Col>
 
-            <Col className='col-sm-12 col-md-6 col-lg-3 text-center mb-5'>
+            <Col className='col-sm-12 col-md-6 col-lg-4 text-center mb-5'>
                 <h3 className="fw-normal"><FontAwesomeIcon icon={faCode} /> REST API</h3>
                 <p>Programmatic access to real-time and archived incident information.</p>
-                <p><a className="btn btn-secondary" href="#">Coming Soon</a></p>
+                <p><a className="btn btn-primary" href={import.meta.env.VITE_API_BASE_URL}>View Documentation</a></p>
             </Col>
 
-            <Col className='col-sm-12 col-md-6 col-lg-3 text-center mb-5'>
+            <Col className='col-sm-12 col-md-6 col-lg-4 text-center mb-5'>
                 <h3 className="fw-normal"><FontAwesomeIcon icon={faGithub} /> Open Source</h3>
                 <p>All code is public and contributions are welcome!</p>
-                <p><a className="btn btn-secondary" href="#"> Contribute</a></p>
-            </Col>
-
-            <Col className='col-xs-12 col-sm-12 col-md-6 col-lg-3 text-center mb-5'>
-                <h3 className="fw-normal"><FontAwesomeIcon icon={faServer} /> Stability</h3>
-                <p>Not being hosted on a ThinkPad X300 using coffee shop Wi-FI</p>
-                
+                <p><a className="btn btn-primary" href="https://github.com/NateShoffner/react-lcwc"> Contribute</a></p>
             </Col>
         </Row>
     </Row>
