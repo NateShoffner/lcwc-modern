@@ -22,6 +22,7 @@ export type Meta = {
 }
 
 export type Incident = {
+    id: string
     category: string
     date: string
     description: string

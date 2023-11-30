@@ -35,8 +35,8 @@ function PopulatedIncidentsTable({incidents}: IncidentTableProps) {
             {
                 incidents.map((incident, index) => (
 
-                <tr className={incident.category.toLowerCase()} key={incident.number} style={{cursor: 'pointer'}} onClick={() => { 
-                    navigate(`/incident/${incidents[index].number}`, {state:{incident: incidents[index]}});
+                <tr className={incident.category.toLowerCase()} key={incident.id} style={{cursor: 'pointer'}} onClick={() => { 
+                    navigate(`/incident/${incident.number}`, {state:{incident: incident}});
                 }}>
                     <td>{new Intl.DateTimeFormat('en-US', {hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(Date.parse(incident.meta.added_at))}</td>
                     <td>{normalizeDescription(incident.description)}</td>     
@@ -45,7 +45,7 @@ function PopulatedIncidentsTable({incidents}: IncidentTableProps) {
                         <ul className='list-unstyled'>
                             {
                                 incident.units.map((unit) => (
-                                    <li key={unit.name}>{unit.name}</li>
+                                    <li key={unit.id}>{unit.short_name}</li>
                                 ))
                             }
                         </ul>

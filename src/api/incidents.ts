@@ -14,7 +14,7 @@ export async function getIncident(
     number: number,
     options?: { signal?: AbortSignal }
   ) {
-    const { data } = await axios.get<IncidentData>(`/incident/${number}`, {
+    const { data } = await axios.get<IncidentData>(`/incident/number/${number}`, {
       signal: options?.signal,
     });
     return data.data;
