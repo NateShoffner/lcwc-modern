@@ -90,7 +90,7 @@ const IncidentPage = () => {
                             <ul className='list-unstyled'>
                                 {
                                     incident.data.units.map((unit: Unit) => (
-                                        <li key={unit.id}>{unit.name}</li>
+                                        <li key={unit.id}>{unit.short_name}</li>
                                     ))
                                 }
                             </ul>
