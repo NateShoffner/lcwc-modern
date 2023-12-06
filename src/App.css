@@ -1,30 +1,29 @@
 main > .container {
-    padding: 60px 15px 0;
+  padding: 60px 15px 0;
 }
 
-tr.fire td{
-    background-color: #d68442 !important;
-    color: #000000 !important;
+tr.fire td {
+  background-color: #d68442 !important;
+  color: #000000 !important;
 }
 
-tr.medical td{
-    background-color: #3a98a8 !important;
-    color: #000000 !important;
+tr.medical td {
+  background-color: #3a98a8 !important;
+  color: #000000 !important;
 }
 
-tr.traffic td{
-    background-color: #4369e6 !important;
-    color: #000000 !important;
+tr.traffic td {
+  background-color: #4369e6 !important;
+  color: #000000 !important;
 }
 
 .map-container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .full-map-container {
-    width: 500px;
-    height: 400px;
-    position: absolute;
-  }
-  
+  width: 500px;
+  height: 400px;
+  position: absolute;
+}

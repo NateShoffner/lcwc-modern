@@ -1,9 +1,7 @@
 import { axios } from "./axios";
 import type { Incident, IncidentData, IncidentsData } from "./incident.types";
 
-export async function getActiveIncidents(
-  options?: { signal?: AbortSignal }
-) {
+export async function getActiveIncidents(options?: { signal?: AbortSignal }) {
   const { data } = await axios.get<IncidentsData>("/incidents/active", {
     signal: options?.signal,
   });
@@ -11,11 +9,11 @@ export async function getActiveIncidents(
 }
 
 export async function getIncident(
-    number: number,
-    options?: { signal?: AbortSignal }
-  ) {
-    const { data } = await axios.get<IncidentData>(`/incident/number/${number}`, {
-      signal: options?.signal,
-    });
-    return data.data;
-  }
+  number: number,
+  options?: { signal?: AbortSignal },
+) {
+  const { data } = await axios.get<IncidentData>(`/incident/number/${number}`, {
+    signal: options?.signal,
+  });
+  return data.data;
+}

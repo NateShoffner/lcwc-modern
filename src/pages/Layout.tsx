@@ -6,19 +6,19 @@ import Navigation from "@components/Navigation";
 const Layout = () => {
   return (
     <>
-    <header className="pb-3 mb-4 border-bottom">
+      <header className="pb-3 mb-4 border-bottom">
         <Navigation />
-    </header>
+      </header>
 
-    <main>
+      <main>
         <Container>
-            <Outlet />
+          <Outlet />
         </Container>
-    </main>
+      </main>
 
-    <Footer /> 
+      <Footer />
     </>
-  )
+  );
 };
 
 export default Layout;

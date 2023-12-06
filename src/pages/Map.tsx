@@ -37,8 +37,8 @@ const IncidentMap = ({ incidents }: IncidentMapProps) => {
       incidentCoords.push(
         new google.maps.LatLng(
           incident.coordinates.latitude,
-          incident.coordinates.longitude
-        )
+          incident.coordinates.longitude,
+        ),
       );
     });
 
@@ -88,7 +88,7 @@ const IncidentMap = ({ incidents }: IncidentMapProps) => {
                 position={
                   new google.maps.LatLng(
                     incident.coordinates.latitude,
-                    incident.coordinates.longitude
+                    incident.coordinates.longitude,
                   )
                 }
               >
@@ -98,7 +98,7 @@ const IncidentMap = ({ incidents }: IncidentMapProps) => {
                     position={
                       new google.maps.LatLng(
                         incident.coordinates.latitude,
-                        incident.coordinates.longitude
+                        incident.coordinates.longitude,
                       )
                     }
                   >
