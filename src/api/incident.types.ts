@@ -24,7 +24,7 @@ export type Meta = {
 export type Incident = {
     id: string
     category: string
-    date: string
+    dispatched_at: string
     description: string
     municipality: string
     intersection: string
