@@ -37,14 +37,14 @@ const IncidentMap = ({ incidents }: IncidentMapProps) => {
       incidentCoords.push(
         new google.maps.LatLng(
           incident.coordinates.latitude,
-          incident.coordinates.longitude,
-        ),
+          incident.coordinates.longitude
+        )
       );
     });
 
     const containerStyle = {
-      width: "800px",
-      height: "400px",
+      width: "1000px",
+      height: "600px",
       margin: "auto",
       borderRadius: "10px",
       boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
@@ -88,7 +88,7 @@ const IncidentMap = ({ incidents }: IncidentMapProps) => {
                 position={
                   new google.maps.LatLng(
                     incident.coordinates.latitude,
-                    incident.coordinates.longitude,
+                    incident.coordinates.longitude
                   )
                 }
               >
@@ -98,14 +98,14 @@ const IncidentMap = ({ incidents }: IncidentMapProps) => {
                     position={
                       new google.maps.LatLng(
                         incident.coordinates.latitude,
-                        incident.coordinates.longitude,
+                        incident.coordinates.longitude
                       )
                     }
                   >
                     <div>
                       <h6>{incident.category} Incident</h6>
 
-                      <Table striped bordered hover>
+                      <Table striped bordered>
                         <tbody>
                           <tr>
                             <td>Incident Number</td>

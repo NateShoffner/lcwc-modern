@@ -27,3 +27,10 @@ tr.traffic td {
   height: 400px;
   position: absolute;
 }
+
+.gm-style .gm-style-iw-d::-webkit-scrollbar-track,
+.gm-style .gm-style-iw-d::-webkit-scrollbar-track-piece,
+.gm-style .gm-style-iw-c,
+.gm-style .gm-style-iw-t::after {
+  background: #212529;
+}
