@@ -8,6 +8,7 @@ import {
   faTriangleExclamation,
   faMap,
   faCode,
+  faBroadcastTower,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetActiveIncidents } from "@hooks/useGetIncidents";
@@ -73,6 +74,12 @@ const Navigation = () => {
                   <FontAwesomeIcon icon={faMap} className="me-2" /> Incident Map
                 </Nav.Link>
               </LinkContainer>
+              <LinkContainer to="agencies" onClick={closeNav}>
+                <Nav.Link className="mx-2">
+                  <FontAwesomeIcon icon={faBroadcastTower} className="me-2" />{" "}
+                  Agencies
+                </Nav.Link>
+              </LinkContainer>
               <LinkContainer to="api" onClick={closeNav}>
                 <Nav.Link className="mx-2">
                   <FontAwesomeIcon icon={faCode} className="me-2" /> API
@@ -86,7 +93,9 @@ const Navigation = () => {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success">Search</Button>
+              <Button variant="success" disabled>
+                Search
+              </Button>
             </Form>
           </Navbar.Collapse>
         </Container>
