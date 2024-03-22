@@ -1,4 +1,3 @@
-import AgenciesTable from "@components/AgenciesTable";
 import { useGetAgencies } from "@hooks/useGetAgencies";
 import { Alert } from "react-bootstrap";
 
