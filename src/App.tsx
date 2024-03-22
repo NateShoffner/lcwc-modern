@@ -9,6 +9,7 @@ import IncidentPage from "@pages/IncidentPage";
 import MapPage from "@pages/Map";
 import { queryClient } from "@api/query-client";
 import ApiPage from "@pages/Api";
+import AgenciesPage from "@pages/Agencies";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="incidents" element={<Incidents />} />
             <Route path="incident/:incidentNumber" element={<IncidentPage />} />
             <Route path="map" element={<MapPage />} />
+            <Route path="agencies" element={<AgenciesPage />} />
             <Route path="api" element={<ApiPage />} />
             <Route path="*" element={<NoPage />} />
           </Route>
